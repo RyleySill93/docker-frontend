@@ -7,3 +7,15 @@ before_install:
 
 script:
   - docker run -e CI=true ryleysill/frontend npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1" # from your app's url
+  app: "frontend-lesson" # name of the app in aws
+  env: "FrontendLesson-env"
+  bucket_name: "elasticbeanstalk-us-west-1-416912674609" # name of bucket in s3
+  bucket_path: "frontend-lesson" # user app name here
+  on:
+    branch: master # only deploy the app when the master branch gets new code
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
